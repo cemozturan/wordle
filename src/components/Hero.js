@@ -1,15 +1,16 @@
 import { Flex, Heading, Box, Text, Link } from '@chakra-ui/react'
 import { Divider } from '@chakra-ui/layout'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
+import { TITLE } from '../constants'
 
-export const Hero = ({ title }) => (
+export const Hero = () => (
   <Flex justifyContent="center" height={{
     base: '1vh', // 0-48em
     md: '12vh', // 48em-80em
   }}>
     <Box textAlign='center'>
       <Heading fontSize="4vw">
-        {title}
+        {TITLE}
       </Heading>
       <Divider />
       <Text fontSize='12px'>
@@ -21,7 +22,3 @@ export const Hero = ({ title }) => (
     </Box>
   </Flex>
 )
-
-Hero.defaultProps = {
-  title: 'WORDLE',
-}

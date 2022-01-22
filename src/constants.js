@@ -1,3 +1,5 @@
+export const TITLE = 'LIMITLESS WORDLE'
+
 export const LETTER_STATUS = {
   ABSENT: 'absent',
   PRESENT: 'present',
