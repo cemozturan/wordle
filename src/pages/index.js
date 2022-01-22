@@ -17,7 +17,7 @@ const Index = () => {
   const processInputLetter = (letter) => {
     setInputLetter(letter)
   }
-  const processToasterMessage = toasterMessage => {
+  const processToasterMessage = (toasterMessage) => {
     setToasterMessage(toasterMessage)
   }
   const processUsedLetters = letters => {
@@ -37,10 +37,12 @@ const Index = () => {
   }
 
   useEffect(() => {
-    if (toasterMessage) {
+    if (toasterMessage !== question) {
       setTimeout(() => {
         setToasterMessage(null)
       }, 1000)
+    } else {
+      setToasterMessage(question)
     }
   }, [toasterMessage])
 

@@ -136,11 +136,12 @@ export const InputGrid = ({ inputLetter, processToasterMessage, question, proces
   )))
   const [currentRowIndex, setCurrentRowIndex] = useState(0);
   const [found, setFound] = useState(false)
+  const [failed, setFailed] = useState(false)
   const [shakeIt, setShakeIt] = useState(false)
 
   useEffect(() => {
     if (!inputLetter) { return }
-    if (found) {
+    if (found || failed) {
       return
     }
     const { value } = inputLetter
@@ -160,6 +161,10 @@ export const InputGrid = ({ inputLetter, processToasterMessage, question, proces
             processToasterMessage(message)
             setFound(true)
           } else {
+            if (currentRowIndex === inputRows.length - 1) {
+              processToasterMessage(question)
+              setFailed(true)
+            }
             setCurrentRowIndex(currentRowIndex + 1)
           }
         }
