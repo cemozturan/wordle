@@ -138,8 +138,6 @@ export const InputGrid = ({ inputLetter, processToasterMessage, question, proces
   const [found, setFound] = useState(false)
   const [shakeIt, setShakeIt] = useState(false)
 
-    console.log(question);
-
   useEffect(() => {
     if (!inputLetter) { return }
     if (found) {
