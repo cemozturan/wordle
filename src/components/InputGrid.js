@@ -51,14 +51,8 @@ const generateInputGrid = (colorMode, inputRows, currentRowIndex, shakeIt, bounc
             borderWidth='2px'
             borderColor={getTileBorderColor(letter, colors)}
             bg={!letter.status ? colors.bg : colors[letter.status]}
-            height={{
-              base: '57px',
-              md: '62px',
-            }}
-            w={{
-              base: '57px',
-              md: '62px',
-            }}
+            height='62px'
+            w='62px'
             display='flex'
             justifyContent='center'
             animation={getAnimationForRow(shakeIt, bounceIt, rowIndex, currentRowIndex)}
@@ -188,8 +182,7 @@ export const InputGrid = ({ inputLetter, processToasterMessage, question, proces
       position="fixed"
       width="100%"
       maxWidth="48rem"
-      pt="3rem"
-      mt='0 !important'
+      mt="3rem !important"
       justifyContent="center"
       bg='none'
     >

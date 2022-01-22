@@ -25,7 +25,7 @@ const getLetterColor = (letter, usedLetters, colorMode) => {
 
 const getLetterWidth = char => {
   return isLetter(char) ? {
-    base: '31px',
+    base: '32px',
     md: '43px',
   } : {
     base: '45px',
@@ -61,7 +61,7 @@ const createKeyboard = (colorMode, processInputLetter, usedLetters) => {
             <Button
               key={index} h='58px' w={getLetterWidth(char)}
               bg={getBgColor(char, usedLetters, colorMode)} m={0.5}
-              minWidth='31px'
+              minWidth='32px'
               color={getLetterColor(char, usedLetters, colorMode)}
               fontSize={isLetter(char) ? '14px' : '12px'}
               fontWeight='bold'

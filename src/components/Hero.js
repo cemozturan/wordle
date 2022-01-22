@@ -5,11 +5,12 @@ import { TITLE } from '../constants'
 
 export const Hero = () => (
   <Flex justifyContent="center" height={{
-    base: '1vh', // 0-48em
+    base: '3vh', // 0-48em
+    sm: '6vh', // 0-48em
     md: '12vh', // 48em-80em
   }}>
     <Box textAlign='center'>
-      <Heading fontSize="4vw">
+      <Heading fontSize="6vw">
         {TITLE}
       </Heading>
       <Divider />
@@ -19,6 +20,7 @@ export const Hero = () => (
           here <ExternalLinkIcon />
         </Link>
       </Text>
+
     </Box>
   </Flex>
 )
