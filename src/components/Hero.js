@@ -1,5 +1,6 @@
-import { Flex, Heading, Box, Text } from '@chakra-ui/react'
+import { Flex, Heading, Box, Text, Link } from '@chakra-ui/react'
 import { Divider } from '@chakra-ui/layout'
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 export const Hero = ({ title }) => (
   <Flex justifyContent="center" height={{
@@ -11,6 +12,12 @@ export const Hero = ({ title }) => (
         {title}
       </Heading>
       <Divider />
+      <Text fontSize='12px'>
+        The original Wordle is{' '}
+        <Link color='teal.500' href='https://www.powerlanguage.co.uk/wordle/' isExternal>
+          here <ExternalLinkIcon />
+        </Link>
+      </Text>
     </Box>
   </Flex>
 )
