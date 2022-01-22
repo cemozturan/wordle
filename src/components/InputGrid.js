@@ -1,16 +1,26 @@
-import { Button, Text, Box, useColorMode, SimpleGrid, keyframes } from '@chakra-ui/react'
+import { Text, Box, useColorMode, SimpleGrid, keyframes } from '@chakra-ui/react'
 import { useEffect, useState } from 'react';
 import { TOASTER_MESSAGES, LETTER_STATUS, COLOR_VALUES } from '../constants';
 import { nonQuestionWords, questionWords } from '../words';
 import { Container } from './Container'
 
 const shake = keyframes`
-    10%,90% {transform: translateX(-1px);}
-    20%,80% {transform: translateX(2px);}
-    30%,50%,70% { transform: translateX(-4px);}
-    40%,60% {transform: translateX(4px);
-  `
-const animation = `${shake} 0.6s linear`
+  10%,90% {transform: translateX(-1px);}
+  20%,80% {transform: translateX(2px);}
+  30%,50%,70% { transform: translateX(-4px);}
+  40%,60% {transform: translateX(4px);
+`
+const shakeAnimation = `${shake} 0.6s linear`
+
+const bounce = keyframes`
+  0%, 20% {transform: translateY(0);}
+  40% {transform: translateY(-30px);}
+  50% {transform: translateY(5px);}
+  60% {transform: translateY(-15px);}
+  80% {transform: translateY(2px);}
+  100% {transform: translateY(0);}
+`
+const bounceAnimation = `${bounce} 1s`
 
 const getTileBorderColor = (letter, colors) => {
   if (!letter.status) {
@@ -19,7 +29,18 @@ const getTileBorderColor = (letter, colors) => {
   return colors[letter.status]
 }
 
-const generateInputGrid = (colorMode, inputRows, currentRowIndex, shakeIt) => {
+const getAnimationForRow = (shakeIt, bounceIt, rowIndex, currentRowIndex) => {
+  if (rowIndex === currentRowIndex) {
+    if (shakeIt) {
+      return shakeAnimation
+    } else if (bounceIt) {
+      return bounceAnimation
+    }
+  }
+  return 'none'
+}
+
+const generateInputGrid = (colorMode, inputRows, currentRowIndex, shakeIt, bounceIt) => {
   const colors = COLOR_VALUES[colorMode];
   return (
     <SimpleGrid columns={5} spacing={1}>
@@ -30,11 +51,17 @@ const generateInputGrid = (colorMode, inputRows, currentRowIndex, shakeIt) => {
             borderWidth='2px'
             borderColor={getTileBorderColor(letter, colors)}
             bg={!letter.status ? colors.bg : colors[letter.status]}
-            height='62px'
-            w='62px'
+            height={{
+              base: '57px',
+              md: '62px',
+            }}
+            w={{
+              base: '57px',
+              md: '62px',
+            }}
             display='flex'
             justifyContent='center'
-            animation={shakeIt && rowIndex === currentRowIndex ? animation : 'none'}
+            animation={getAnimationForRow(shakeIt, bounceIt, rowIndex, currentRowIndex)}
             alignItems='center'>
             <Text
               color={!letter.status ? colors.nonEvaluatedText : colors.evaluatedText}
@@ -111,13 +138,15 @@ export const InputGrid = ({ inputLetter, processToasterMessage, question, proces
   const [found, setFound] = useState(false)
   const [shakeIt, setShakeIt] = useState(false)
 
+    console.log(question);
+
   useEffect(() => {
     if (!inputLetter) { return }
     if (found) {
       return
     }
     const { value } = inputLetter
-    if (value === 'Enter') {
+    if (value === 'ENTER') {
       if (inputRows[currentRowIndex][4].value) {
         const { rows, message, error } = processWordSubmission(inputRows, currentRowIndex, question)
         if (error) {
@@ -161,7 +190,7 @@ export const InputGrid = ({ inputLetter, processToasterMessage, question, proces
       justifyContent="center"
       bg='none'
     >
-      {generateInputGrid(colorMode, inputRows, currentRowIndex, shakeIt)}
+      {generateInputGrid(colorMode, inputRows, currentRowIndex, shakeIt, found)}
     </Container>
   )
 }
