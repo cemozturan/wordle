@@ -1,10 +1,21 @@
 import { Button, VStack, Box, useColorMode } from '@chakra-ui/react'
+import { COLOR_VALUES } from '../constants'
 import { Container } from './Container'
 
 const bgColor = { light: '#d3d6da', dark: '#818384' }
 const backspaceColor = { light: '#1a1a1b', dark: '#d7dadc' }
 
-const createKeyboard = (colorMode, processInputLetter) => {
+const isLetter = char => RegExp(/^[A-Z]*$/,'u').test(char)
+
+const getBgColor = (letter, usedLetters, colorMode) => {
+  const usedLetter = usedLetters.find(x => x.value === letter)
+  if (usedLetter) {
+    return COLOR_VALUES[colorMode][usedLetter.status]
+  }
+  return bgColor[colorMode]
+}
+
+const createKeyboard = (colorMode, processInputLetter, usedLetters) => {
   const rows = [
     { chars: ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'], paddingLeft: 0 },
     { chars: ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'], paddingLeft: 6 },
@@ -21,8 +32,8 @@ const createKeyboard = (colorMode, processInputLetter) => {
         <Box key={rowIndex} pl={row.paddingLeft}>
           {row.chars.map((char, index) =>
             <Button
-              key={index} h='58px' w={RegExp(/^[A-Z]*$/,'u').test(char) ? '43px' : '65px'}
-              bg={bgColor[colorMode]} m={0.5}
+              key={index} h='58px' w={isLetter(char) ? '43px' : '65px'}
+              bg={getBgColor(char, usedLetters, colorMode)} m={0.5}
               onClick={() => processInputLetter({ value: char })}>
               {char}
             </Button>
@@ -32,7 +43,7 @@ const createKeyboard = (colorMode, processInputLetter) => {
   )
 };
 
-export const Keyboard = ({ processInputLetter }) => {
+export const Keyboard = ({ processInputLetter, usedLetters }) => {
   const { colorMode } = useColorMode()
   return (
     <Container
@@ -45,7 +56,7 @@ export const Keyboard = ({ processInputLetter }) => {
       justifyContent="center"
       bg='none'
     >
-      {createKeyboard(colorMode, processInputLetter)}
+      {createKeyboard(colorMode, processInputLetter, usedLetters)}
     </Container>
   )
 }

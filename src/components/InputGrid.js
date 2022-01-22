@@ -1,6 +1,6 @@
 import { Button, Text, Box, useColorMode, SimpleGrid, keyframes } from '@chakra-ui/react'
 import { useEffect, useState } from 'react';
-import { TOASTER_MESSAGES, LETTER_STATUS } from '../constants';
+import { TOASTER_MESSAGES, LETTER_STATUS, COLOR_VALUES } from '../constants';
 import { nonQuestionWords, questionWords } from '../words';
 import { Container } from './Container'
 
@@ -12,28 +12,6 @@ const shake = keyframes`
   `
 const animation = `${shake} 0.6s linear`
 
-const colorValues = {
-  light: {
-    bg: '#ffffff',
-    emptyTileBorder: '#d3d6da',
-    nonEmptyTileBorder: '#878a8c',
-    absent: '#787c7e',
-    present: '#c9b458',
-    correct: '#6aaa64',
-    evaluatedText: '#ffffff',
-    nonEvaluatedText: '#1a1a1b'
-  },
-  dark: {
-    bg: '#121213',
-    emptyTileBorder: '#3a3a3c',
-    nonEmptyTileBorder: '#565758',
-    absent: '#3a3a3c',
-    present: '#b59f3b',
-    correct: '#538d4e',
-    evaluatedText: '#d7dadc',
-    nonEvaluatedText: '#d7dadc'
-  }}
-
 const getTileBorderColor = (letter, colors) => {
   if (!letter.status) {
     return letter.value ? colors.nonEmptyTileBorder : colors.emptyTileBorder
@@ -42,7 +20,7 @@ const getTileBorderColor = (letter, colors) => {
 }
 
 const generateInputGrid = (colorMode, inputRows, currentRowIndex, shakeIt) => {
-  const colors = colorValues[colorMode];
+  const colors = COLOR_VALUES[colorMode];
   return (
     <SimpleGrid columns={5} spacing={1}>
       {inputRows.map((row, rowIndex) => {
@@ -124,7 +102,7 @@ const processWordSubmission = (rows, currentRowIndex, question) => {
   }
 }
 
-export const InputGrid = ({ inputLetter, processToasterMessage, question }) => {
+export const InputGrid = ({ inputLetter, processToasterMessage, question, processUsedLetters }) => {
   const { colorMode } = useColorMode()
   const [inputRows, setInputRows] = useState(Array.from({ length: 6 }, () => (
     Array.from({ length: 5 }, ()=> ({ value: '', status: null }))
@@ -150,6 +128,7 @@ export const InputGrid = ({ inputLetter, processToasterMessage, question }) => {
           }, 600)
         } else {
           setInputRows(rows)
+          processUsedLetters(inputRows[currentRowIndex])
           if (message) {
             processToasterMessage(message)
             setFound(true)
