@@ -1,17 +1,17 @@
-import { Flex, Heading } from '@chakra-ui/react'
+import { Flex, Heading, Box, Text } from '@chakra-ui/react'
+import { Divider } from '@chakra-ui/layout'
 
 export const Hero = ({ title }) => (
-  <Flex justifyContent="center" alignItems="center" height="100vh">
-    <Heading
-      fontSize="10vw"
-      bgGradient="linear(to-l, #7928CA, #FF0080)"
-      bgClip="text"
-    >
-      {title}
-    </Heading>
+  <Flex justifyContent="center" height="12vh">
+    <Box textAlign='center'>
+      <Heading fontSize="4vw">
+        {title}
+      </Heading>
+      <Divider />
+    </Box>
   </Flex>
 )
 
 Hero.defaultProps = {
-  title: 'with-chakra-ui',
+  title: 'WORDLE',
 }
