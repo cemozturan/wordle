@@ -67,6 +67,8 @@ const createKeyboard = (colorMode, processInputLetter, usedLetters) => {
               fontWeight='bold'
               paddingInlineStart={0}
               paddingInlineEnd={0}
+              onMouseDown={e => e.preventDefault()}
+              onMouseUp={e => e.preventDefault()}
               onClick={() => processInputLetter({ value: char })}>
               {char}
             </Button>
