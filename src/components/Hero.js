@@ -5,12 +5,15 @@ import { TITLE } from '../constants'
 
 export const Hero = () => (
   <Flex justifyContent="center" height={{
-    base: '3vh', // 0-48em
-    sm: '6vh', // 0-48em
-    md: '12vh', // 48em-80em
+    base: '3vh',
+    sm: '6vh',
+    md: '12vh',
   }}>
     <Box textAlign='center'>
-      <Heading fontSize="6vw">
+      <Heading fontSize={{
+        base: '18px',
+        md: '36px', 
+      }}>
         {TITLE}
       </Heading>
       <Divider />
