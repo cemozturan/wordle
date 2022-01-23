@@ -1,6 +1,7 @@
 import { Text, Box, useColorMode, SimpleGrid, keyframes } from '@chakra-ui/react'
 import { useEffect, useState } from 'react';
 import { TOASTER_MESSAGES, LETTER_STATUS, COLOR_VALUES } from '../constants';
+import { findAllIndexesOfChar } from '../utils/find-char-indexes';
 import { nonQuestionWords, questionWords } from '../words';
 import { Container } from './Container'
 
@@ -108,12 +109,25 @@ const processWordSubmission = (rows, currentRowIndex, question) => {
       message: TOASTER_MESSAGES.NOT_IN_WORD_LIST
     }
   }
+  const indexesAlreadyMarked = []
   for (let index = 0; index < currentRow.length; index++) {
     const letter = currentRow[index].value;
     if (question[index] === letter) {
       currentRow[index].status = LETTER_STATUS.CORRECT
-    } else if (question.includes(letter)) {
-      currentRow[index].status = LETTER_STATUS.PRESENT
+      indexesAlreadyMarked.push(index)
+    }
+  }
+  for (let index = 0; index < currentRow.length; index++) {
+    const letter = currentRow[index].value;
+    if (question.includes(letter)) {
+      const indexesInQuestion = findAllIndexesOfChar(letter, question)
+      const unmarkedIndex = indexesInQuestion.find(x => !indexesAlreadyMarked.includes(x))
+      if (unmarkedIndex >= 0) {
+        currentRow[index].status = LETTER_STATUS.PRESENT
+        indexesAlreadyMarked.push(unmarkedIndex)  
+      } else {
+        currentRow[index].status = currentRow[index].status || LETTER_STATUS.ABSENT
+      }
     } else {
       currentRow[index].status = LETTER_STATUS.ABSENT
     }
