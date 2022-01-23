@@ -194,10 +194,9 @@ export const InputGrid = ({ inputLetter, processToasterMessage, question, proces
   return (
     <Container
       flexDirection="column"
-      position="fixed"
+      position="relative"
       width="100%"
       maxWidth="48rem"
-      mt="3rem !important"
       justifyContent="center"
       bg='none'
     >

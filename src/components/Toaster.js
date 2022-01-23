@@ -9,8 +9,8 @@ export const Toaster = ({ message }) => {
     <Flex justifyContent="center">
       <Box
         mt={{
-          base: 20,
-          md: 0,
+          base: '10vh',
+          md: '2vh',
         }}
         zIndex={5}
         bg={bgColor[colorMode]} px={4} py={2}

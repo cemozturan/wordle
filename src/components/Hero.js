@@ -4,11 +4,7 @@ import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { TITLE } from '../constants'
 
 export const Hero = () => (
-  <Flex justifyContent="center" height={{
-    base: '3vh',
-    sm: '6vh',
-    md: '12vh',
-  }}>
+  <Flex justifyContent="center">
     <Box textAlign='center'>
       <Heading fontSize={{
         base: '18px',
@@ -23,7 +19,6 @@ export const Hero = () => (
           here <ExternalLinkIcon />
         </Link>
       </Text>
-
     </Box>
   </Flex>
 )

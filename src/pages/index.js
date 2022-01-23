@@ -52,6 +52,7 @@ const Index = () => {
       <Main>
         {toasterMessage && <Toaster message={toasterMessage} />}
         <InputGrid
+          position='relative'
           inputLetter={inputLetter}
           processToasterMessage={processToasterMessage}
           question={question}
