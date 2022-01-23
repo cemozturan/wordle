@@ -1,4 +1,6 @@
 export const TITLE = 'LIMITLESS WORDLE'
+export const ENTER = 'ENTER'
+export const BACKSPACE = 'BACKSPACE'
 
 export const LETTER_STATUS = {
   ABSENT: 'absent',

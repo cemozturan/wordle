@@ -1,7 +1,8 @@
 import { Text, Box, useColorMode, SimpleGrid, keyframes } from '@chakra-ui/react'
 import { useEffect, useState } from 'react';
-import { TOASTER_MESSAGES, LETTER_STATUS, COLOR_VALUES } from '../constants';
+import { TOASTER_MESSAGES, LETTER_STATUS, COLOR_VALUES, ENTER } from '../constants';
 import { findAllIndexesOfChar } from '../utils/find-char-indexes';
+import { isLetter } from '../utils/is-letter';
 import { nonQuestionWords, questionWords } from '../words';
 import { Container } from './Container'
 
@@ -153,7 +154,7 @@ export const InputGrid = ({ inputLetter, processToasterMessage, question, proces
       return
     }
     const { value } = inputLetter
-    if (value === 'ENTER') {
+    if (value === ENTER) {
       if (inputRows[currentRowIndex][4].value) {
         const { rows, message, error } = processWordSubmission(inputRows, currentRowIndex, question)
         if (error) {
@@ -183,7 +184,7 @@ export const InputGrid = ({ inputLetter, processToasterMessage, question, proces
           setShakeIt(false)
         }, 600)
       }
-    } else if ((typeof value) === 'string') {
+    } else if (isLetter(value)) {
       setInputRows(inputRows => updateRowsWithInput(value, inputRows, currentRowIndex));
     } else {
       setInputRows(inputRows => updateRowsWithDeletion(inputRows, currentRowIndex))
