@@ -49,8 +49,8 @@ const Index = () => {
   return (
     <Container height="100vh">
       <Hero />
+      {toasterMessage && <Toaster message={toasterMessage} />}
       <Main>
-        {toasterMessage && <Toaster message={toasterMessage} />}
         <InputGrid
           position='relative'
           inputLetter={inputLetter}

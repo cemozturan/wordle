@@ -93,8 +93,6 @@ export const Keyboard = ({ processInputLetter, usedLetters }) => {
   return (
     <Container
       flexDirection="row"
-      position="fixed"
-      bottom="0"
       width="100%"
       maxWidth="48rem"
       py={2}
