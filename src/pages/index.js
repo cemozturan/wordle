@@ -14,6 +14,7 @@ const Index = () => {
   const [inputLetter, setInputLetter] = useState(null)
   const [toasterMessage, setToasterMessage] = useState(null)
   const [usedLetters, setUsedLetters] = useState([])
+  const [heightValue, setHeightValue] = useState('100vh')
   const processInputLetter = (letter) => {
     setInputLetter(letter)
   }
@@ -37,6 +38,10 @@ const Index = () => {
   }
 
   useEffect(() => {
+    setHeightValue(`${window.innerHeight}px`)
+  }, [])
+
+  useEffect(() => {
     if (toasterMessage !== question) {
       setTimeout(() => {
         setToasterMessage(null)
@@ -47,7 +52,10 @@ const Index = () => {
   }, [toasterMessage])
 
   return (
-    <Container height="100vh">
+    <Container height={{
+      base: heightValue,
+      md: '100vh',
+    }}>
       <Hero />
       {toasterMessage && <Toaster message={toasterMessage} />}
       <Main>
