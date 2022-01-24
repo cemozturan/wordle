@@ -138,7 +138,7 @@ const processWordSubmission = (rows, currentRowIndex, question) => {
   }
 }
 
-export const InputGrid = ({ inputLetter, processToasterMessage, question, processUsedLetters }) => {
+export const InputGrid = ({ inputLetter, processToasterMessage, question, processUsedLetters, showAnswerToUser }) => {
   const { colorMode } = useColorMode()
   const [inputRows, setInputRows] = useState(Array.from({ length: 6 }, () => (
     Array.from({ length: 5 }, ()=> ({ value: '', status: null }))
@@ -171,8 +171,8 @@ export const InputGrid = ({ inputLetter, processToasterMessage, question, proces
             setFound(true)
           } else {
             if (currentRowIndex === inputRows.length - 1) {
-              processToasterMessage(question)
               setFailed(true)
+              showAnswerToUser()
             }
             setCurrentRowIndex(currentRowIndex + 1)
           }

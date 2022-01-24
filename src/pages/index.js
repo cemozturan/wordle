@@ -13,8 +13,9 @@ const Index = () => {
   const [question] = useState(questionWords[Math.floor(Math.random() * (questionWords.length))].toUpperCase())
   const [inputLetter, setInputLetter] = useState(null)
   const [toasterMessage, setToasterMessage] = useState(null)
+  const [showAnswer, setShowAnswer] = useState(false)
   const [usedLetters, setUsedLetters] = useState([])
-  const [heightValue, setHeightValue] = useState('100vh')
+  const [mobileHeightValue, setMobileHeightValue] = useState('100vh')
   const processInputLetter = (letter) => {
     setInputLetter(letter)
   }
@@ -36,27 +37,31 @@ const Index = () => {
     }
     setUsedLetters(newUsedLetters)
   }
+  const showAnswerToUser = () => {
+    setToasterMessage(null)
+    setShowAnswer(true)
+  }
 
   useEffect(() => {
-    setHeightValue(`${window.innerHeight}px`)
+    setMobileHeightValue(`${window.innerHeight}px`)
   }, [])
 
   useEffect(() => {
-    if (toasterMessage !== question) {
-      setTimeout(() => {
-        setToasterMessage(null)
-      }, 1000)
-    } else {
-      setToasterMessage(question)
+    const timer = setTimeout(() => {
+      setToasterMessage(null)
+    }, 1250)
+    return () => {
+      clearTimeout(timer)
     }
   }, [toasterMessage])
 
   return (
     <Container height={{
-      base: heightValue,
+      base: mobileHeightValue,
       md: '100vh',
     }}>
       <Hero />
+      {showAnswer && <Toaster message={question} />}
       {toasterMessage && <Toaster message={toasterMessage} />}
       <Main>
         <InputGrid
@@ -65,6 +70,7 @@ const Index = () => {
           processToasterMessage={processToasterMessage}
           question={question}
           processUsedLetters={processUsedLetters}
+          showAnswerToUser={showAnswerToUser}
         />
       </Main>
 
