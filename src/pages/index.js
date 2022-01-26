@@ -61,7 +61,7 @@ const Index = () => {
       md: '100vh',
     }}>
       <Hero />
-      {showAnswer && <Toaster message={'question'} />}
+      {showAnswer && <Toaster message={question} />}
       {toasterMessage && <Toaster message={toasterMessage} />}
       <Main>
         <InputGrid
