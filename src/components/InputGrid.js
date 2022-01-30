@@ -118,7 +118,6 @@ const processWordSubmission = (rows, currentRowIndex, question) => {
       indexesAlreadyMarked.push(index)
     }
   }
-  console.log(indexesAlreadyMarked);
   for (let index = 0; index < currentRow.length; index++) {
     if (indexesAlreadyMarked.includes(index)) {
       continue;
