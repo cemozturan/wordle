@@ -119,16 +119,13 @@ const processWordSubmission = (rows, currentRowIndex, question) => {
     }
   }
   for (let index = 0; index < currentRow.length; index++) {
-    if (indexesAlreadyMarked.includes(index)) {
-      continue;
-    }
     const letter = currentRow[index].value;
     if (question.includes(letter)) {
       const indexesInQuestion = findAllIndexesOfChar(letter, question)
       const unmarkedIndex = indexesInQuestion.find(x => !indexesAlreadyMarked.includes(x))
       if (unmarkedIndex >= 0) {
         currentRow[index].status = currentRow[index].status || LETTER_STATUS.PRESENT
-        indexesAlreadyMarked.push(index)  
+        indexesAlreadyMarked.push(unmarkedIndex)  
       } else {
         currentRow[index].status = currentRow[index].status || LETTER_STATUS.ABSENT
       }
